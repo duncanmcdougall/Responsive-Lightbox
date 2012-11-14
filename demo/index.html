@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Demo - Lightbox by Duncan McDougall</title>
+    <meta name="description" content="Lightbox demo" />
+    <link rel="author" href="https://plus.google.com/111415540551684216261/posts" />
+    <link rel="stylesheet" href="demo.css?v=1.0" />
+    <link rel="stylesheet" href="../lightbox.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                Lightbox
+            </h1>
+        </div>
+        <div class="description">
+            
+        </div>
+        <div class="examples">
+            <h2>
+                Examples
+            </h2>
+            <ul>
+                <li><a href="images/sample_a.jpg" rel="lightbox"><img src="images/sample_a_thumb.jpg" /></a></li>
+                <li><a href="images/sample_b.jpg" rel="lightbox"><img src="images/sample_b_thumb.jpg" /></a></li>
+                <li><a href="images/sample_c.jpg" rel="lightbox"><img src="images/sample_c_thumb.jpg" /></a></li>
+                <li><a href="images/sample_d.jpg" rel="lightbox"><img src="images/sample_d_thumb.jpg" /></a></li>
+            </ul>
+        </div>
+        <div class="instructions">
+            <h2>
+                Instructions
+            </h2>
+        </div>
+        <div class="footer">
+            <p>
+                v1.0 by Duncan McDougall - 2012. 
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="../lightbox.js"></script>
+    <script>
+        $(function()
+          {
+             $('[rel="lightbox"]').lightbox(); 
+          });
+    </script>
+</body>
+</html>

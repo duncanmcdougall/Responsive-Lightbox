@@ -1,0 +1,40 @@
+.box-shadow(@shadow: 0 0 20px rgba(0,0,0,1)) {
+  -webkit-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
+}
+
+.border-radius (@radius: 1px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+}
+
+@overlay-bg:0.8;
+@blur: 2;
+
+#dm-lightbox
+{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,@overlay-bg);
+    -webkit-filter:none;
+    
+    img
+    {
+        display:block;
+        position:absolute;
+        border:5px solid white;
+        .box-shadow();
+        .border-radius();
+    }
+}
+
+
+body.blurred > *
+{
+    -webkit-filter:blur(2px);
+}
