@@ -14,12 +14,12 @@
       img.height('');
       iHeight = img[0].height;
       iWidth = img[0].width;
-      if(iWidth > wWidth) {
+      if ( iWidth > wWidth ) {
         resizeRatio = wWidth / iWidth;
         iWidth = wWidth;
         iHeight = Math.round(iHeight * resizeRatio);
       }
-      if(iHeight > wHeight) {
+      if ( iHeight > wHeight ) {
         resizeRatio = wHeight / iHeight;
         iHeight = wHeight;
         iWidth = Math.round(iWidth * resizeRatio);
@@ -44,7 +44,7 @@
       self = $(this);
       e.preventDefault();
       if ( $(".lightbox").length === 0 ) {
-        $("body").append('<div class="lightbox" style="display:none;" ></div>');
+        $("body").prepend('<div class="lightbox" style="display:none;" ></div>');
         
         // Add click state on overlay background only
         $('.lightbox').on('click', function (e) {
@@ -83,13 +83,15 @@
       var img = $('<img src="'+self.attr('href')+'">');
   
       function loadImage() {
-        SetupImage(img);
         $('.lightbox').append(img);
+        SetupImage(img);
       };
       
       $("body").addClass("blurred");
       $('.lightbox').fadeIn();
+      $('.lightbox').append('<span class="loading"></span>');
       $(img).load(function() {
+        $('.loading').remove();
         loadImage();
       });
     });
