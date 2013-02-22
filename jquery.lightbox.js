@@ -1,81 +1,109 @@
 (function ($) {
-	"use strict";
-    $.fn.lightbox = function() {
-        var padding = 50;
-        var resizeRatio, wHeight, wWidth, iHeight, iWidth;
-        
-        function SetupImage (img) {
-            wHeight = $(window).height() - padding;
-            wWidth = $(window).width() - padding;
-            img.width('');
-            img.height('');
-            iHeight = img[0].height;
-            iWidth = img[0].width;
-            if(iWidth > wWidth)
-            {
-                resizeRatio = wWidth / iWidth;
-                iWidth = wWidth;
-                iHeight = Math.round(iHeight * resizeRatio);
-            }
-            if(iHeight > wHeight)
-            {
-                resizeRatio = wHeight / iHeight;
-                iHeight = wHeight;
-                iWidth = Math.round(iWidth * resizeRatio);
-            }
-            img.width(iWidth);
-            img.height(iHeight);
-            img.css({
-                "top": ($('#lightboxOverlay').height()-$(img).outerHeight() - 10)/2+"px",
-                "left": ($('#lightboxOverlay').width()-$(img).outerWidth() - 10)/2+"px"
-            });
-        }
+  
+  "use strict";
+  
+  $.fn.lightbox = function() {
+    var self;
+    var padding = 50;
+    var resizeRatio, wHeight, wWidth, iHeight, iWidth;
+    
+    function SetupImage (img) {
+      wHeight = $(window).height() - padding;
+      wWidth = $(window).width() - padding;
+      img.width('');
+      img.height('');
+      iHeight = img[0].height;
+      iWidth = img[0].width;
+      if ( iWidth > wWidth ) {
+        resizeRatio = wWidth / iWidth;
+        iWidth = wWidth;
+        iHeight = Math.round(iHeight * resizeRatio);
+      }
+      if ( iHeight > wHeight ) {
+        resizeRatio = wHeight / iHeight;
+        iHeight = wHeight;
+        iWidth = Math.round(iWidth * resizeRatio);
+      }
+      img.width(iWidth);
+      img.height(iHeight);
+      img.css({
+        "top": ($('.lightbox').height()-$(img).outerHeight() - 10)/2+"px",
+        "left": ($('.lightbox').width()-$(img).outerWidth() - 10)/2+"px"
+      });
+    }
 
-        function CloseLightbox () {
-            $('#lightboxOverlay').html('').fadeToggle('fast');
-            $('body').removeClass('blurred');
-        }
-      
-        $(this).click(function (e) {
-            e.preventDefault();
-            if($("#lightboxOverlay").length === 0)
-            {
-                $("body").append('<div id="lightboxOverlay" style="display:none" ></div>');
-            }
+    function CloseLightbox () {
+      $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
+      $('.lightbox').html('').fadeOut(function() {
+        $(this).remove();
+      });
+      $('body').removeClass('blurred');
+    }
+  
+    $(this).click(function (e) {
+      self = $(this);
+      e.preventDefault();
+      if ( $(".lightbox").length === 0 ) {
+        $("body").prepend('<div class="lightbox" style="display:none;" ></div>');
         
-            var img = $('<img src="'+$(this).attr('href')+'" />');
-        
-            var loadImage = function()
-            {
-                SetupImage(img);
-                $('#lightboxOverlay').append(img);
-            };
-            
-            $("body").addClass("blurred");
-            $('#lightboxOverlay').fadeIn('slow');
-            $(img).load(function()
-            {
-                loadImage();
-            });
-        });
-      
-        $(window).resize(function() {
-            if($('#lightboxOverlay img').length === 0)
-            {
-                return;
-            }
-            SetupImage($('#lightboxOverlay img'));
-        });
-        
-        $(document).keydown(function (e) {
-            if (e.keyCode === 27)
-            {
-                CloseLightbox();
-            }
-        });
-        
-        $('#lightboxOverlay').live('click', function () {
+        // Add click state on overlay background only
+        $('.lightbox').on('click', function (e) {
+          if ( this === e.target ) {
             CloseLightbox();
+          }
         });
-    };
+
+        // Bind Keyboard Shortcuts
+        $(document).on('keydown', function (e) {
+          // Close lightbox with ESC
+          if (e.keyCode === 27) {
+            CloseLightbox();
+          }
+          // Go to next image pressing the right key
+          if (e.keyCode === 39) {
+            self.parents('li').next().find('a').click();
+            if ( $('.lightbox img').length ) {
+              CloseLightbox();
+            }
+          }
+
+          // Go to previous image pressing the left key
+          if (e.keyCode === 37) {
+            self.parents('li').prev().find('a').click();
+            if ( $('.lightbox img').length ) {
+              CloseLightbox();
+            }
+          }
+        });
+
+      } // end lightbox check
+
+      $('.lightbox img').remove(); // remove all images in lightbox (if any)
+
+      var img = $('<img src="'+self.attr('href')+'">');
+  
+      function loadImage() {
+        $('.lightbox').append(img);
+        SetupImage(img);
+      };
+      
+      $("body").addClass("blurred");
+      $('.lightbox').fadeIn();
+      $('.lightbox').append('<span class="loading"></span>');
+      $(img).load(function() {
+        $('.loading').remove();
+        loadImage();
+      });
+    });
+  
+    $(window).resize(function() {
+      if($('.lightbox img').length === 0) {
+        return;
+      }
+      SetupImage($('.lightbox img'));
+    });
+    
+
+
+  };
 })(jQuery);
