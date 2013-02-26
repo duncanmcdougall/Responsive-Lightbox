@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style type="text/css">
     body {
       font-family: sans-serif;
@@ -54,6 +55,27 @@
       top: 50%;
       left: 50%;
     }
+    .close-lightbox, .next, .previous {
+      position: absolute;
+      z-index: 9999;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      background: #000;
+      padding: 1%;
+    }
+    .close-lightbox {
+      right: 0;
+      top: 0;
+    }
+    .next {
+      right: 0;
+      top: 50%;
+    }
+    .previous {
+      left: 0;
+      top: 50%;
+    }
   </style>
 </head>
 <body>
@@ -61,10 +83,10 @@
   <h1>Responsive Lightbox</h1>
 
   <ul class="gallery">
-    <li><a href="images/sample_a.jpg"><img src="images/sample_a_thumb.jpg" /></a></li>
-    <li><a href="images/sample_b.jpg"><img src="images/sample_b_thumb.jpg" /></a></li>
-    <li><a href="images/sample_c.jpg"><img src="images/sample_c_thumb.jpg" /></a></li>
-    <li><a href="images/sample_d.jpg"><img src="images/sample_d_thumb.jpg" /></a></li>
+    <li><a href="images/sample_a.jpg"><img src="images/sample_a_thumb.jpg" alt="Image"></a></li>
+    <li><a href="images/sample_b.jpg"><img src="images/sample_b_thumb.jpg" alt="Image"></a></li>
+    <li><a href="images/sample_c.jpg"><img src="images/sample_c_thumb.jpg" alt="Image"></a></li>
+    <li><a href="images/sample_d.jpg"><img src="images/sample_d_thumb.jpg" alt="Image"></a></li>
   </ul>
 
 </div>

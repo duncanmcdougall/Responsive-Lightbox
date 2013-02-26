@@ -1,6 +1,6 @@
 (function ($) {
   
-  "use strict";
+  'use strict';
   
   $.fn.lightbox = function() {
     var self;
@@ -27,8 +27,8 @@
       img.width(iWidth);
       img.height(iHeight);
       img.css({
-        "top": ($('.lightbox').height()-$(img).outerHeight() - 10)/2+"px",
-        "left": ($('.lightbox').width()-$(img).outerWidth() - 10)/2+"px"
+        'top': ($('.lightbox').height()-$(img).outerHeight() - 10)/2+'px',
+        'left': ($('.lightbox').width()-$(img).outerWidth() - 10)/2+'px'
       });
     }
 
@@ -43,14 +43,53 @@
     $(this).click(function (e) {
       self = $(this);
       e.preventDefault();
-      if ( $(".lightbox").length === 0 ) {
-        $("body").prepend('<div class="lightbox" style="display:none;" ></div>');
-        
+      if ( $('.lightbox').length === 0 ) {
+        $('body').prepend('\
+          <div class="lightbox" style="display:none;">\
+          <a href="#" class="close-lightbox">Close</a>\
+          <div class="lightbox-nav">\
+            <a href="#" class="previous">previous</a>\
+            <a href="#" class="next">next</a>\
+          </div>\
+          </div>\
+          ');
         // Add click state on overlay background only
         $('.lightbox').on('click', function (e) {
           if ( this === e.target ) {
             CloseLightbox();
           }
+        });
+
+        var nextImage = function() {
+          self.parents('li').next().find('a').click();
+          if ( $('.lightbox img').length ) {
+            CloseLightbox();
+          }          
+        }
+
+        var previousImage = function() {
+          self.parents('li').prev().find('a').click();
+          if ( $('.lightbox img').length ) {
+            CloseLightbox();
+          }
+        }
+
+        // Previous click
+        $('.lightbox').on('click', '.previous', function() {
+          previousImage();
+          return false;
+        });
+
+        // Next click
+        $('.lightbox').on('click', '.next', function() {
+          nextImage();
+          return false;
+        });
+
+        // Close click
+        $('.lightbox').on('click', '.close-lightbox', function() {
+          CloseLightbox();
+          return false;
         });
 
         // Bind Keyboard Shortcuts
@@ -61,18 +100,12 @@
           }
           // Go to next image pressing the right key
           if (e.keyCode === 39) {
-            self.parents('li').next().find('a').click();
-            if ( $('.lightbox img').length ) {
-              CloseLightbox();
-            }
+            nextImage();
           }
 
           // Go to previous image pressing the left key
           if (e.keyCode === 37) {
-            self.parents('li').prev().find('a').click();
-            if ( $('.lightbox img').length ) {
-              CloseLightbox();
-            }
+            previousImage();
           }
         });
 
