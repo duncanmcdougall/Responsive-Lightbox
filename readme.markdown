@@ -6,6 +6,12 @@ jQuery responsive lightbox plugin.
 
 Shrinks the image to the width & height of the browser. Only handles images so it's nice and lightweight. 
 
+
+Demonstration
+-------------
+[http://www.duncanmcdougall.co.uk/projects/responsive-lightbox.html](http://www.duncanmcdougall.co.uk/projects/responsive-lightbox.html)
+
+
 Dependencies
 -------------
 jQuery >= 1.4
