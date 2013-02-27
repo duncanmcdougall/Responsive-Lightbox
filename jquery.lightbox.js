@@ -1,3 +1,8 @@
+/*!
+ * jquery.lightbox.js
+ * https://github.com/duncanmcdougall/Responsive-Lightbox
+ * Copyright 2013 Duncan McDougall and other contributors; Licensed MIT
+ */
 (function ($) {
 
   'use strict';
