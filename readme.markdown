@@ -1,16 +1,14 @@
 Responsive-Lightbox
 ===================
-by [Duncan McDougall](http://www.diaryofanappdeveloper.com) | [@duncanmcdougall](http://www.twitter.com/duncanmcdougall)
+by [Duncan McDougall](http://www.duncanmcdougall.co.uk) | [@duncanmcdougall](http://www.twitter.com/duncanmcdougall)
 
 jQuery responsive lightbox plugin.
 
 Shrinks the image to the width & height of the browser. Only handles images so it's nice and lightweight. 
 
-
 Demonstration
 -------------
-[http://www.duncanmcdougall.co.uk/projects/responsive-lightbox.html](http://www.duncanmcdougall.co.uk/projects/responsive-lightbox.html)
-
+[Responsive Lightbox Demo](http://www.duncanmcdougall.co.uk/projects/responsive-lightbox.html)
 
 Dependencies
 -------------
@@ -26,9 +24,9 @@ Usage
 </head>
 <body>
 <!-- Link to the image -->
-<a href="myimage.jpg" rel="lightbox">Click me</a>
+<a href="photo.jpg" rel="lightbox">Click me</a>
 
-<script src="jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="lightbox.min.js"></script>
 
 <script>
