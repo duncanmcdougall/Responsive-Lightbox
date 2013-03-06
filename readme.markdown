@@ -42,7 +42,6 @@ Usage
 To Do
 ------
 * Options: { loop slides, disable nav }
-* Hide nav at ends of collection
 
 Thanks To
 --------

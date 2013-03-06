@@ -65,7 +65,6 @@
 					}
 				});
 
-
 				var nextImage = function () {
 					if ($.inArray(self, allItems) >= allItems.length - 1) {
 						CloseLightbox();
@@ -124,8 +123,19 @@
 			var img = $('<img src="' + $(self).attr('href') + '">');
 
 			function loadImage() {
+				if($.inArray(self, allItems) >= allItems.length - 1) {
+					$('.lightbox-next').fadeOut(200);
+				}else{
+					$('.lightbox-next').fadeIn(200);
+				}
+				if($.inArray(self, allItems) == 0) {
+					$('.lightbox-previous').fadeOut(200);
+				}else{
+					$('.lightbox-previous').fadeIn(200);
+				}
 				$('.lightbox').append(img);
 				SetupImage(img);
+
 			};
 
 			$("body").addClass("blurred");
