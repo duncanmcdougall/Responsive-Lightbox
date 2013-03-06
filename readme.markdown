@@ -39,6 +39,11 @@ Usage
 
 ```
 
+To Do
+------
+* Options: { loop slides, disable nav }
+* Hide nav at ends of collection
+
 Thanks To
 --------
 I'd like to thank [Matthew Hartman](http://www.matthewhartman.com.au/) for contributing a number of improvements to the lightbox.
