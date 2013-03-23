@@ -54,3 +54,5 @@ Licensed under the Creative Commons Attribution 2.5 License - http://creativecom
 
 Free for use in both personal and commercial projects.
 Attribution requires leaving author name, author homepage link, and the license info intact.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5d72f21aaa7123a5ee228de20ecc2e53 "githalytics.com")](http://githalytics.com/duncanmcdougall/Responsive-Lightbox)
