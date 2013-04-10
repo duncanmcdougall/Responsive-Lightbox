@@ -7,151 +7,189 @@
 
 	'use strict';
 
-	$.fn.lightbox = function () {
-		var self;
-		var padding = 50;
-		var resizeRatio, wHeight, wWidth, iHeight, iWidth;
-		var allItems = $(this);
+	$.fn.lightbox = function (options) {
+	    var plugin = {
 
-		function SetupImage(img) {
-			wHeight = $(window).height() - padding;
-			wWidth = $(window).width() - padding;
-			img.width('');
-			img.height('');
-			iHeight = img[0].height;
-			iWidth = img[0].width;
-			if (iWidth > wWidth) {
-				resizeRatio = wWidth / iWidth;
-				iWidth = wWidth;
-				iHeight = Math.round(iHeight * resizeRatio);
-			}
-			if (iHeight > wHeight) {
-				resizeRatio = wHeight / iHeight;
-				iHeight = wHeight;
-				iWidth = Math.round(iWidth * resizeRatio);
-			}
-			img.width(iWidth).height(iHeight);
-			img.css({
-				'top': ($('.lightbox').height() - $(img).outerHeight() - 10) / 2 + 'px',
-				'left': ($('.lightbox').width() - $(img).outerWidth() - 10) / 2 + 'px'
-			});
-		}
+	        items: [],
+	        lightbox: null,
+	        image: null,
+			// margin of the image to the window
+	        margin: 50,
+	        current: null,
+	        locked: false,
+			
+			init: function (items) {
+	            plugin.items = items;
 
-		function CloseLightbox() {
-			$(document).off('keydown'); // Unbind all key events each time the lightbox is closed
-			$('.lightbox').html('').fadeOut(function () {
-				$(this).remove();
-			});
-			$('body').removeClass('blurred');
-		}
+	            if (!plugin.lightbox) {
+	                $('body').append('\
+					  <div id="lightbox" style="display:none;">\
+					  <a href="#" class="close-lightbox">Close</a>\
+					  <div class="lightbox-nav">\
+						 <a href="#" class="lightbox-previous">previous</a>\
+						 <a href="#" class="lightbox-next">next</a>\
+					  </div>\
+					  </div>\
+					  ');
 
-		$(this).click(function (e) {
-			self = $(this)[0];
-			e.preventDefault();
-			if ($('.lightbox').length === 0) {
-				$('body').append('\
-  <div class="lightbox" style="display:none;">\
-  <a href="#" class="close-lightbox">Close</a>\
-  <div class="lightbox-nav">\
-	 <a href="#" class="lightbox-previous">previous</a>\
-	 <a href="#" class="lightbox-next">next</a>\
-  </div>\
-  </div>\
-  ');
-				// Add click state on overlay background only
-				$('.lightbox').on('click', function (e) {
-					if (this === e.target) {
-						CloseLightbox();
-					}
-				});
+	                plugin.lightbox = $("#lightbox");
+	            }
 
-				var nextImage = function () {
-					if ($.inArray(self, allItems) >= allItems.length - 1) {
-						CloseLightbox();
-					} else {
-						allItems[$.inArray(self, allItems) + 1].click();
-					}
-				}
+	            if (plugin.items.length > 1) {
+	                $('.lightbox-next', plugin.lightbox).show();
+	                $('.lightbox-previous', plugin.lightbox).show();
+	            } else {
+	                $('.lightbox-next', plugin.lightbox).hide();
+	                $('.lightbox-previous', plugin.lightbox).hide();
+	            }
 
-				var previousImage = function () {
-					if ($.inArray(self, allItems) <= 0) {
-						CloseLightbox();
-					} else {
-						allItems[$.inArray(self, allItems) - 1].click();
-					}
-				}
+	            plugin.bindEvents();
 
-				// Previous click
-				$('.lightbox').on('click', '.lightbox-previous', function () {
-					previousImage();
-					return false;
-				});
+	        },
 
-				// Next click
-				$('.lightbox').on('click', '.lightbox-next', function () {
-					nextImage();
-					return false;
-				});
+	        loadImage: function () {
+	            $("body").addClass("blurred");
+	            $("img", plugin.lightbox).remove();
+	            plugin.lightbox.fadeIn('fast').append('<span class="lightbox-loading"></span>');
 
-				// Close click
-				$('.lightbox').on('click', '.close-lightbox', function () {
-					CloseLightbox();
-					return false;
-				});
+	            var img = $('<img src="' + $(plugin.current).attr('href') + '" draggable="false">');
 
-				// Bind Keyboard Shortcuts
-				$(document).on('keydown', function (e) {
-					// Close lightbox with ESC
-					if (e.keyCode === 27) {
-						CloseLightbox();
-					}
-					// Go to next image pressing the right key
-					if (e.keyCode === 39) {
-						nextImage();
-					}
+	            $(img).load(function () {
+	                $('.lightbox-loading').remove();
+	                plugin.lightbox.append(img);
+	                plugin.image = $("img", plugin.lightbox);
+	                plugin.image.hide();
+	                plugin.resizeImage();
 
-					// Go to previous image pressing the left key
-					if (e.keyCode === 37) {
-						previousImage();
-					}
-				});
+	            });
+	        },
 
-			} // end lightbox check
+	        resizeImage: function () {
+	            var resizeRatio, wHeight, wWidth, iHeight, iWidth;
+	            wHeight = $(window).height() - plugin.margin;
+	            wWidth = $(window).outerWidth(true) - plugin.margin;
+	            plugin.image.width('');
+	            plugin.image.height('');
+	            iHeight = plugin.image.height();
+	            iWidth = plugin.image.width();
+	            if (iWidth > wWidth) {
+	                resizeRatio = wWidth / iWidth;
+	                iWidth = wWidth;
+	                iHeight = Math.round(iHeight * resizeRatio);
+	            }
+	            if (iHeight > wHeight) {
+	                resizeRatio = wHeight / iHeight;
+	                iHeight = wHeight;
+	                iWidth = Math.round(iWidth * resizeRatio);
+	            }
 
-			$('.lightbox img').remove(); // remove all images in lightbox (if any)
+	            plugin.image.width(iWidth).height(iHeight);
+	            plugin.image.css({
+	                'top': ($(window).height() - plugin.image.outerHeight()) / 2 + 'px',
+	                'left': ($(window).width() - plugin.image.outerWidth()) / 2 + 'px'
+	            });
+	            plugin.image.show();
+	            plugin.locked = false;
+	        },
 
-			var img = $('<img src="' + $(self).attr('href') + '">');
+	        getCurrentIndex: function () {
+	            return $.inArray(plugin.current, plugin.items);
+	        },
 
-			function loadImage() {
-				if($.inArray(self, allItems) >= allItems.length - 1) {
-					$('.lightbox-next').fadeOut(200);
-				}else{
-					$('.lightbox-next').fadeIn(200);
-				}
-				if($.inArray(self, allItems) == 0) {
-					$('.lightbox-previous').fadeOut(200);
-				}else{
-					$('.lightbox-previous').fadeIn(200);
-				}
-				$('.lightbox').append(img);
-				SetupImage(img);
+	        next: function () {
+	            if (plugin.locked) {
+	                return false;
+	            }
+	            plugin.locked = true;
+	            if (plugin.getCurrentIndex() >= plugin.items.length - 1) {
+	                plugin.items[0].click();
+	            } else {
+	                plugin.items[plugin.getCurrentIndex() + 1].click();
+	            }
+	        },
 
-			};
+	        previous: function () {
+	            if (plugin.locked) {
+	                return false;
+	            }
+	            plugin.locked = true;
+	            if (plugin.getCurrentIndex() <= 0) {
+	                plugin.items[plugin.items.length - 1].click();
+	            } else {
+	                plugin.items[plugin.getCurrentIndex() - 1].click();
+	            }
+	        },
 
-			$("body").addClass("blurred");
-			$('.lightbox').fadeIn().append('<span class="lightbox-loading"></span>');
-			$(img).load(function () {
-				$('.lightbox-loading').remove();
-				loadImage();
-			});
-		});
+	        bindEvents: function () {
+	            $(plugin.items).click(function (e) {
+	                var self = $(this)[0];
+	                e.preventDefault();
+	                plugin.current = self;
+	                plugin.loadImage();
 
-		$(window).resize(function () {
-			if ($('.lightbox img').length === 0) {
-				return;
-			}
-			SetupImage($('.lightbox img'));
-		});
+	                // Bind Keyboard Shortcuts
+	                $(document).on('keydown', function (e) {
+	                    // Close lightbox with ESC
+	                    if (e.keyCode === 27) {
+	                        plugin.close();
+	                    }
+	                    // Go to next image pressing the right key
+	                    if (e.keyCode === 39) {
+	                        plugin.next();
+	                    }
 
+	                    // Go to previous image pressing the left key
+	                    if (e.keyCode === 37) {
+	                        plugin.previous();
+	                    }
+	                });
+	            });
+
+	            // Add click state on overlay background only
+	            plugin.lightbox.on('click', function (e) {
+	                if (this === e.target) {
+	                    plugin.close();
+	                }
+	            });
+
+	            // Previous click
+	            $(plugin.lightbox).on('click', '.lightbox-previous', function () {
+	                plugin.previous();
+	                return false;
+	            });
+
+	            // Next click
+	            $(plugin.lightbox).on('click', '.lightbox-next', function () {
+	                plugin.next();
+	                return false;
+	            });
+
+	            // Close click
+	            $(plugin.lightbox).on('click', '.close-lightbox', function () {
+	                plugin.close();
+	                return false;
+	            });
+
+	            $(window).resize(function () {
+	                if (!plugin.image) {
+	                    return;
+	                }
+	                plugin.resizeImage();
+	            });
+	        },
+
+	        close: function () {
+	            $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
+	            $('#lightbox').fadeOut('fast', function () {
+	                //$(this).remove();
+	            });
+	            $('body').removeClass('blurred');
+	        }
+		};
+			
+		$.extend(plugin, options);
+
+		plugin.init(this);
 	};
+
 })(jQuery);
