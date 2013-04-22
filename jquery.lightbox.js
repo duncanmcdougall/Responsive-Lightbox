@@ -17,6 +17,7 @@
             margin: 50,
             current: null,
             locked: false,
+            nav: true,
 
             init: function (items) {
                 plugin.items = items;
@@ -24,10 +25,10 @@
                 if (!plugin.lightbox) {
                     $('body').append('\
                       <div id="lightbox" style="display:none;">\
-                      <a href="#" class="lightbox-close">Close</a>\
                       <div class="lightbox-nav">\
-                         <a href="#" class="lightbox-previous">previous</a>\
-                         <a href="#" class="lightbox-next">next</a>\
+                        <a href="#" class="lightbox-close">Close</a>\
+                        <a href="#" class="lightbox-previous">previous</a>\
+                        <a href="#" class="lightbox-next">next</a>\
                       </div>\
                       </div>\
                       ');
@@ -35,12 +36,10 @@
                     plugin.lightbox = $("#lightbox");
                 }
 
-                if (plugin.items.length > 1) {
-                    $('.lightbox-next', plugin.lightbox).show();
-                    $('.lightbox-previous', plugin.lightbox).show();
+                if (plugin.items.length > 1 && plugin.nav) {
+                    $('.lightbox-nav', plugin.lightbox).show();
                 } else {
-                    $('.lightbox-next', plugin.lightbox).hide();
-                    $('.lightbox-previous', plugin.lightbox).hide();
+                    $('.lightbox-nav', plugin.lightbox).hide();
                 }
 
                 plugin.bindEvents();
