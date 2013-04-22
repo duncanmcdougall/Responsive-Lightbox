@@ -24,7 +24,7 @@
                 if (!plugin.lightbox) {
                     $('body').append('\
                       <div id="lightbox" style="display:none;">\
-                      <a href="#" class="close-lightbox">Close</a>\
+                      <a href="#" class="lightbox-close">Close</a>\
                       <div class="lightbox-nav">\
                          <a href="#" class="lightbox-previous">previous</a>\
                          <a href="#" class="lightbox-next">next</a>\
@@ -165,7 +165,7 @@
                 });
 
                 // Close click
-                $(plugin.lightbox).on('click', '.close-lightbox', function () {
+                $(plugin.lightbox).on('click', '.lightbox-close', function () {
                     plugin.close();
                     return false;
                 });

@@ -31,7 +31,7 @@ body.blurred > * {
 	left: 50%;
 }
 
-.close-lightbox, .lightbox-next, .lightbox-previous {
+.lightbox-close, .lightbox-next, .lightbox-previous {
 	position: absolute;
 	z-index: 9999;
 	color: #fff;
@@ -40,7 +40,7 @@ body.blurred > * {
 	background: #000;
 	padding: 1%;
 }
-.close-lightbox {
+.lightbox-close {
 	right: 0;
 	top: 0;
 }
