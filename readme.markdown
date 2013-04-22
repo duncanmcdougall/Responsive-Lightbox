@@ -41,7 +41,7 @@ Usage
 
 To Do
 ------
-* Options: { loop slides, disable nav }
+* Options: { loop slides }
 
 Thanks To
 --------
