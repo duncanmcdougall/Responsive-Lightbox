@@ -39,13 +39,15 @@ Usage
 
 ```
 
-To Do
+Next Steps
 ------
-* Options: { loop slides }
+* Options: { loop }
+* Faster image switching
+* Light and dark simple themes
 
 Thanks To
 --------
-I'd like to thank [Matthew Hartman](http://www.matthewhartman.com.au/) for contributing a number of improvements to the lightbox.
+I'd like to thank [Matthew Hartman](http://www.matthewhartman.com.au/), [imiric](https://github.com/imiric) et all for contributing a number of improvements to the lightbox.
 
 License
 --------
