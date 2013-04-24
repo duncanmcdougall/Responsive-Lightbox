@@ -1,7 +1,7 @@
 /*!
  * jquery.lightbox.js
  * https://github.com/duncanmcdougall/Responsive-Lightbox
- * Copyright 2013 Duncan McDougall and other contributors; Licensed MIT
+ * Copyright 2013 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
  */
 (function ($) {
 
@@ -23,15 +23,15 @@
                 plugin.items = items;
 
                 if (!plugin.lightbox) {
-                    $('body').append('\
-                      <div id="lightbox" style="display:none;">\
-                      <div class="lightbox-nav">\
-                        <a href="#" class="lightbox-close">Close</a>\
-                        <a href="#" class="lightbox-previous">previous</a>\
-                        <a href="#" class="lightbox-next">next</a>\
-                      </div>\
-                      </div>\
-                      ');
+                    $('body').append(
+                      '<div id="lightbox" style="display:none;">'+
+                      '<div class="lightbox-nav">'+
+                        '<a href="#" class="lightbox-close">Close</a>' +
+                        '<a href="#" class="lightbox-previous">previous</a>' +
+                        '<a href="#" class="lightbox-next">next</a>' +
+                      '</div>' +
+                      '</div>'
+                    );
 
                     plugin.lightbox = $("#lightbox");
                 }

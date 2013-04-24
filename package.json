@@ -1,0 +1,21 @@
+{
+  "name": "Responsive Lightbox",
+  "title": "Responsive Lightbox",
+  "description": "Lightweight, image only, responive lightbox",
+  "author": {
+    "name": "Duncan McDougall",
+    "url": "http://www.duncanmcdougall.co.uk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duncanmcdougall/Responsive-Lightbox.git"
+  },
+  "bugs": "https://github.com/duncanmcdougall/Responsive-Lightbox/issues",
+  "version": "1.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-cssmin": "~0.6.0"
+  }
+}
