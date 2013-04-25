@@ -39,6 +39,43 @@ Usage
 
 ```
 
+Contributing
+------
+
+First, clone a copy of using the GUI or the main git repo by running:
+
+```bash
+git clone git://github.com/duncanmcdougall/Responsive-Lightbox.git
+```
+
+I'm using GruntJS to do all the minification and linting as build tasks.
+
+Install the grunt-cli package so that you will have the correct version of grunt available from any project that needs it. This should be done as a global install:
+
+```bash
+npm install -g grunt-cli
+```
+
+Enter the jquery directory and install the Node dependencies, this time *without* specifying a global install:
+
+```bash
+cd Responsive-Lightbox && npm install
+```
+
+Make sure you have `grunt` installed by testing:
+
+```bash
+grunt -version
+```
+
+Then, to get a complete, minified (w/ Uglify.js), linted (w/ JSHint) version of the plugin, type the following:
+
+```bash
+grunt
+```
+
+The built version of the plugin will be saved to .min versions.
+
 Next Steps
 ------
 * Options: { loop }
