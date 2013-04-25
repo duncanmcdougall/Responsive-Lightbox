@@ -32,12 +32,24 @@ Usage
 <script>
  $(function()
  {
-    $('[rel="lightbox"]').lightbox();
+    $('.lightbox').lightbox();
  });
 </script>
 </body>
 
 ```
+
+Options
+------
+
+```bash
+    $('.lightbox').lightbox({ margin: 20, nav: false, blur: true, minSize: 480});
+```
+
+* margin - int - default 50. Minimum margin around the image
+* nav - bool - default true. enable navigation
+* blur - bool - default true. Blur other content when open using css filter
+* minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
 
 Contributing
 ------

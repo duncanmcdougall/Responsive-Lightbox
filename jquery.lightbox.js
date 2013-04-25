@@ -2,22 +2,34 @@
  * jquery.lightbox.js
  * https://github.com/duncanmcdougall/Responsive-Lightbox
  * Copyright 2013 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
+ *
+ * Options: 
+ * margin - int - default 50. Minimum margin around the image
+ * nav - bool - default true. enable navigation
+ * blur - bool - default true. Blur other content when open using css filter
+ * minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
+ *
  */
 (function ($) {
 
     'use strict';
 
     $.fn.lightbox = function (options) {
+
+        var opts = {
+            margin: 50,
+            nav: true,
+            blur: true,
+            minSize: 0
+        };
+
         var plugin = {
 
             items: [],
             lightbox: null,
             image: null,
-            // margin of the image to the window
-            margin: 50,
             current: null,
             locked: false,
-            nav: true,
 
             init: function (items) {
                 plugin.items = items;
@@ -36,7 +48,7 @@
                     plugin.lightbox = $("#lightbox");
                 }
 
-                if (plugin.items.length > 1 && plugin.nav) {
+                if (plugin.items.length > 1 && opts.nav) {
                     $('.lightbox-nav', plugin.lightbox).show();
                 } else {
                     $('.lightbox-nav', plugin.lightbox).hide();
@@ -47,7 +59,9 @@
             },
 
             loadImage: function () {
-                $("body").addClass("blurred");
+                if(opts.blur) {
+                    $("body").addClass("blurred");
+                }
                 $("img", plugin.lightbox).remove();
                 plugin.lightbox.fadeIn('fast').append('<span class="lightbox-loading"></span>');
 
@@ -65,8 +79,8 @@
 
             resizeImage: function () {
                 var resizeRatio, wHeight, wWidth, iHeight, iWidth;
-                wHeight = $(window).height() - plugin.margin;
-                wWidth = $(window).outerWidth(true) - plugin.margin;
+                wHeight = $(window).height() - opts.margin;
+                wWidth = $(window).outerWidth(true) - opts.margin;
                 plugin.image.width('');
                 plugin.image.height('');
                 iHeight = plugin.image.height();
@@ -121,6 +135,10 @@
 
             bindEvents: function () {
                 $(plugin.items).click(function (e) {
+                    if(!$("#lightbox").is(":visible") && ($(window).width() < opts.minSize || $(window).height() < opts.minSize)) {
+                        $(this).attr("target", "_blank");
+                        return;
+                    }
                     var self = $(this)[0];
                     e.preventDefault();
                     plugin.current = self;
@@ -186,7 +204,7 @@
             }
         };
 
-        $.extend(plugin, options);
+        $.extend(opts, options);
 
         plugin.init(this);
     };

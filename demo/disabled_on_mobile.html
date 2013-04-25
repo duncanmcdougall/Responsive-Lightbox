@@ -29,8 +29,9 @@
 </head>
 <body>
 <div class="container">
-  <h1>Responsive Lightbox</h1>
-
+  <h1>Responsive Lightbox - minSize Demo</h1>
+  <p>Screens smaller than 480px will load the image in a new tab</p>
+  <p>Inspired by <a href="http://bradfrostweb.com/blog/post/conditional-lightbox/">Conditional Lightbox</a> by Brad Frost</p>
   <ul class="gallery">
     <li><a href="images/sample_a.jpg"><img src="images/sample_a_thumb.jpg" alt="Image"></a></li>
     <li><a href="images/sample_b.jpg"><img src="images/sample_b_thumb.jpg" alt="Image"></a></li>
@@ -42,12 +43,13 @@
   </footer>
 </div>
 
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="../jquery.lightbox.js"></script>
 <script>
   // Initiate Lightbox
   $(function() {
-    $('.gallery a').lightbox(); 
+    $('.gallery a').lightbox({minSize: 480}); 
   });
 </script>
 </body>
