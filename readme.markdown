@@ -50,9 +50,9 @@ Options
 * nav - bool - default true. enable navigation
 * blur - bool - default true. Blur other content when open using css filter
 * minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
-* CloseButtonText - string - User can define Close Button Text
-* PreviousButtonText - string - User can define Previous Button Text
-* NextButtonText - string - User can define Next Button Text
+* CloseButtonText - text - User can define Close Button Text
+* PreviousButtonText - text - User can define Previous Button Text
+* NextButtonText - text - User can define Next Button Text
 
 Contributing
 ------
