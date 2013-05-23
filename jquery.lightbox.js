@@ -20,7 +20,10 @@
             margin: 50,
             nav: true,
             blur: true,
-            minSize: 0
+            minSize: 0,
+    		CloseButtonText: 'Close',
+			NextButtonText: 'Next',
+			PreviousButtonText: 'Previous'
         };
 
         var plugin = {
@@ -38,9 +41,9 @@
                     $('body').append(
                       '<div id="lightbox" style="display:none;">'+
                       '<div class="lightbox-nav">'+
-                        '<a href="#" class="lightbox-close">Close</a>' +
-                        '<a href="#" class="lightbox-previous">previous</a>' +
-                        '<a href="#" class="lightbox-next">next</a>' +
+                         '<a href="#" class="lightbox-close">'+opts.CloseButtonText+'</a>' +
+                        '<a href="#" class="lightbox-previous">'+opts.PreviousButtonText+'</a>' +
+                        '<a href="#" class="lightbox-next">'+opts.NextButtonText+'</a>' +
                       '</div>' +
                       '</div>'
                     );
