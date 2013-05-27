@@ -8,6 +8,9 @@
  * nav - bool - default true. enable navigation
  * blur - bool - default true. Blur other content when open using css filter
  * minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
+ * closeButtonText - string - default 'Close'
+ * nextButtonText - string - default 'Next'
+ * prevButtonText - string - default 'Next'
  *
  */
 (function ($) {
@@ -21,9 +24,9 @@
             nav: true,
             blur: true,
             minSize: 0,
-            CloseButtonText: 'Close',
-            NextButtonText: 'Next',
-            PreviousButtonText: 'Previous'
+            closeButtonText: 'Close',
+            nextButtonText: 'Next',
+            previousButtonText: 'Previous'
         };
 
         var plugin = {
@@ -39,13 +42,13 @@
 
                 if (!plugin.lightbox) {
                     $('body').append(
-                        '<div id="lightbox" style="display:none;">'+
-                            '<a href="#" class="lightbox-close">'+opts.CloseButtonText+'</a>' +
-                            '<div class="lightbox-nav">'+
-                                '<a href="#" class="lightbox-previous">'+opts.PreviousButtonText+'</a>' +
-                                '<a href="#" class="lightbox-next">'+opts.NextButtonText+'</a>' +
-                            '</div>' +
-                        '</div>'
+                      '<div id="lightbox" style="display:none;">'+
+                      '<a href="#" class="lightbox-close">'+opts.closeButtonText+'</a>' +
+                      '<div class="lightbox-nav">'+
+                      '<a href="#" class="lightbox-previous">'+opts.previousButtonText+'</a>' +
+                      '<a href="#" class="lightbox-next">'+opts.nextButtonText+'</a>' +
+                      '</div>' +
+                      '</div>'
                     );
 
                     plugin.lightbox = $("#lightbox");
