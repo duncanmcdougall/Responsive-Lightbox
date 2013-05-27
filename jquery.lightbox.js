@@ -37,10 +37,10 @@
                 if (!plugin.lightbox) {
                     $('body').append(
                       '<div id="lightbox" style="display:none;">'+
-                      '<div class="lightbox-nav">'+
-                        '<a href="#" class="lightbox-close">Close</a>' +
-                        '<a href="#" class="lightbox-previous">previous</a>' +
-                        '<a href="#" class="lightbox-next">next</a>' +
+                        '<a href="#" class="lightbox-close">X</a>' +
+                        '<div class="lightbox-nav">'+
+                        '<a href="#" class="lightbox-previous">Previous</a>' +
+                        '<a href="#" class="lightbox-next">Next</a>' +
                       '</div>' +
                       '</div>'
                     );
@@ -115,9 +115,9 @@
                 }
                 plugin.locked = true;
                 if (plugin.getCurrentIndex() >= plugin.items.length - 1) {
-                    plugin.items[0].click();
+                    $(plugin.items[0]).click();
                 } else {
-                    plugin.items[plugin.getCurrentIndex() + 1].click();
+                    $(plugin.items[plugin.getCurrentIndex() + 1]).click();
                 }
             },
 
@@ -127,9 +127,9 @@
                 }
                 plugin.locked = true;
                 if (plugin.getCurrentIndex() <= 0) {
-                    plugin.items[plugin.items.length - 1].click();
+                    $(plugin.items[plugin.items.length - 1]).click();
                 } else {
-                    plugin.items[plugin.getCurrentIndex() - 1].click();
+                    $(plugin.items[plugin.getCurrentIndex() - 1]).click();
                 }
             },
 
