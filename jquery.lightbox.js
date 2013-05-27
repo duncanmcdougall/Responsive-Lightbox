@@ -20,7 +20,10 @@
             margin: 50,
             nav: true,
             blur: true,
-            minSize: 0
+            minSize: 0,
+            CloseButtonText: 'Close',
+            NextButtonText: 'Next',
+            PreviousButtonText: 'Previous'
         };
 
         var plugin = {
@@ -36,13 +39,13 @@
 
                 if (!plugin.lightbox) {
                     $('body').append(
-                      '<div id="lightbox" style="display:none;">'+
-                        '<a href="#" class="lightbox-close">X</a>' +
-                        '<div class="lightbox-nav">'+
-                        '<a href="#" class="lightbox-previous">Previous</a>' +
-                        '<a href="#" class="lightbox-next">Next</a>' +
-                      '</div>' +
-                      '</div>'
+                        '<div id="lightbox" style="display:none;">'+
+                            '<a href="#" class="lightbox-close">'+opts.CloseButtonText+'</a>' +
+                            '<div class="lightbox-nav">'+
+                                '<a href="#" class="lightbox-previous">'+opts.PreviousButtonText+'</a>' +
+                                '<a href="#" class="lightbox-next">'+opts.NextButtonText+'</a>' +
+                            '</div>' +
+                        '</div>'
                     );
 
                     plugin.lightbox = $("#lightbox");

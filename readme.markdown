@@ -43,13 +43,16 @@ Options
 ------
 
 ```bash
-    $('.lightbox').lightbox({ margin: 20, nav: false, blur: true, minSize: 480});
+    $('.lightbox').lightbox({ margin: 20, nav: false, blur: true, minSize: 480,CloseButtonText: 'Close',PreviousButtonText: 'Previous', NextButtonText: 'Next'});
 ```
 
 * margin - int - default 50. Minimum margin around the image
 * nav - bool - default true. enable navigation
 * blur - bool - default true. Blur other content when open using css filter
 * minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
+* CloseButtonText - text - User can define Close Button Text
+* PreviousButtonText - text - User can define Previous Button Text
+* NextButtonText - text - User can define Next Button Text
 
 Contributing
 ------
