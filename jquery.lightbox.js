@@ -8,9 +8,6 @@
  * nav - bool - default true. enable navigation
  * blur - bool - default true. Blur other content when open using css filter
  * minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
- * closeButtonText - string - default 'Close'
- * nextButtonText - string - default 'Next'
- * prevButtonText - string - default 'Next'
  *
  */
 (function ($) {
@@ -23,10 +20,7 @@
             margin: 50,
             nav: true,
             blur: true,
-            minSize: 0,
-            closeButtonText: 'Close',
-            nextButtonText: 'Next',
-            previousButtonText: 'Previous'
+            minSize: 0
         };
 
         var plugin = {
@@ -43,10 +37,10 @@
                 if (!plugin.lightbox) {
                     $('body').append(
                       '<div id="lightbox" style="display:none;">'+
-                      '<a href="#" class="lightbox-close">'+opts.closeButtonText+'</a>' +
+                      '<a href="#" class="lightbox-close lightbox-button"></a>' +
                       '<div class="lightbox-nav">'+
-                      '<a href="#" class="lightbox-previous">'+opts.previousButtonText+'</a>' +
-                      '<a href="#" class="lightbox-next">'+opts.nextButtonText+'</a>' +
+                      '<a href="#" class="lightbox-previous lightbox-button"></a>' +
+                      '<a href="#" class="lightbox-next lightbox-button"></a>' +
                       '</div>' +
                       '</div>'
                     );
@@ -76,38 +70,33 @@
                 $(img).load(function () {
                     $('.lightbox-loading').remove();
                     plugin.lightbox.append(img);
-                    plugin.image = $("img", plugin.lightbox);
-                    plugin.image.hide();
+                    plugin.image = $("img", plugin.lightbox).hide();
                     plugin.resizeImage();
-
                 });
             },
 
             resizeImage: function () {
-                var resizeRatio, wHeight, wWidth, iHeight, iWidth;
+                var ratio, wHeight, wWidth, iHeight, iWidth;
                 wHeight = $(window).height() - opts.margin;
                 wWidth = $(window).outerWidth(true) - opts.margin;
-                plugin.image.width('');
-                plugin.image.height('');
+                plugin.image.width('').height('');
                 iHeight = plugin.image.height();
                 iWidth = plugin.image.width();
                 if (iWidth > wWidth) {
-                    resizeRatio = wWidth / iWidth;
+                    ratio = wWidth / iWidth;
                     iWidth = wWidth;
-                    iHeight = Math.round(iHeight * resizeRatio);
+                    iHeight = Math.round(iHeight * ratio);
                 }
                 if (iHeight > wHeight) {
-                    resizeRatio = wHeight / iHeight;
+                    ratio = wHeight / iHeight;
                     iHeight = wHeight;
-                    iWidth = Math.round(iWidth * resizeRatio);
+                    iWidth = Math.round(iWidth * ratio);
                 }
 
-                plugin.image.width(iWidth).height(iHeight);
-                plugin.image.css({
-                    'top': ($(window).height() - plugin.image.outerHeight()) / 2 + 'px',
-                    'left': ($(window).width() - plugin.image.outerWidth()) / 2 + 'px'
-                });
-                plugin.image.show();
+                plugin.image.width(iWidth).height(iHeight).css({
+						'top': ($(window).height() - plugin.image.outerHeight()) / 2 + 'px',
+						'left': ($(window).width() - plugin.image.outerWidth()) / 2 + 'px'
+					}).show();
                 plugin.locked = false;
             },
 
@@ -160,7 +149,6 @@
                         if (e.keyCode === 39) {
                             plugin.next();
                         }
-
                         // Go to previous image pressing the left key
                         if (e.keyCode === 37) {
                             plugin.previous();
@@ -203,9 +191,7 @@
 
             close: function () {
                 $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
-                $('#lightbox').fadeOut('fast', function () {
-                    //$(this).remove();
-                });
+                $('#lightbox').fadeOut('fast');
                 $('body').removeClass('blurred');
             }
         };

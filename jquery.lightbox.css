@@ -27,28 +27,44 @@ body.blurred > * {
 	height: 31px;
 	margin: -16px 0 0 -16px;
 	position: absolute;
-	top: 50%;
+	top: 48%;
 	left: 50%;
 }
 
-.lightbox-close, .lightbox-next, .lightbox-previous {
+.lightbox-button {
 	position: absolute;
 	z-index: 9999;
-	color: #fff;
-	text-decoration: none;
-	text-align: center;
-	background: #000;
-	padding: 1%;
+	background: no-repeat center center;
+	width: 32px;
+	height: 32px;
+	opacity:0.4;
+	-webkit-transition: all 0.3s;
+	-moz-transition:    all 0.3s;
+	-ms-transition:     all 0.3s;
+	transition: 		all 0.3s;
 }
+
+.lightbox-button:hover,
+.lightbox-button:focus {
+	opacity: 1;
+	-webkit-transform: scale(1.4);
+	-moz-transform: scale(1.4);
+	-ms-transform: scale(1.4);
+	transform: scale(1.4);
+}
+
 .lightbox-close {
-	right: 0;
-	top: 0;
+	right: 10px;
+	top: 10px;
+	background-image: url('close.png');
 }
 .lightbox-next {
-	right: 0;
-	top: 50%;
+	right: 10px;
+	top: 48%;
+	background-image: url('next.png');
 }
 .lightbox-previous {
-	left: 0;
-	top: 50%;
+	left: 10px;
+	top: 48%;
+	background-image: url('previous.png');
 }
