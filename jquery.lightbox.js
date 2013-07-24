@@ -30,13 +30,15 @@
             image: null,
             current: null,
             locked: false,
-
+			selector: "#lightbox",
+			
             init: function (items) {
                 plugin.items = items;
+				plugin.selector = "lightbox-"+Math.random().toString().replace('.','');
 
                 if (!plugin.lightbox) {
                     $('body').append(
-                      '<div id="lightbox" style="display:none;">'+
+                      '<div id="lightbox" class='+plugin.selector+' style="display:none;">'+
                       '<a href="#" class="lightbox-close lightbox-button"></a>' +
                       '<div class="lightbox-nav">'+
                       '<a href="#" class="lightbox-previous lightbox-button"></a>' +
@@ -45,7 +47,7 @@
                       '</div>'
                     );
 
-                    plugin.lightbox = $("#lightbox");
+                    plugin.lightbox = $("."+plugin.selector);
                 }
 
                 if (plugin.items.length > 1 && opts.nav) {
@@ -191,7 +193,7 @@
 
             close: function () {
                 $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
-                $('#lightbox').fadeOut('fast');
+                $(plugin.lightbox).fadeOut('fast');
                 $('body').removeClass('blurred');
             }
         };

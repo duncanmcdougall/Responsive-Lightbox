@@ -24,7 +24,10 @@ Usage
 </head>
 <body>
 <!-- Link to the image -->
-<a href="photo.jpg" rel="lightbox">Click me</a>
+<div class="gallery">
+<a href="photo1.jpg">Image 1</a>
+<a href="photo2.jpg">Image 2</a>
+</div>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="lightbox.min.js"></script>
@@ -32,7 +35,11 @@ Usage
 <script>
  $(function()
  {
-    $('.lightbox').lightbox();
+    $('.gallery a').lightbox(); 
+	
+	// If you want seperate galleries on the same page
+	// just specify different class names. 
+	$('.gallery-2 a').lightbox();
  });
 </script>
 </body>
@@ -43,7 +50,7 @@ Options
 ------
 
 ```bash
-    $('.lightbox').lightbox({ margin: 20, nav: false, blur: true, minSize: 480 });
+    $('.gallery').lightbox({ margin: 20, nav: false, blur: true, minSize: 480 });
 ```
 
 * margin - int - default 50. Minimum margin around the image
