@@ -43,7 +43,7 @@ Options
 ------
 
 ```bash
-    $('.lightbox').lightbox({ margin: 20, nav: false, blur: true, minSize: 480,CloseButtonText: 'Close',PreviousButtonText: 'Previous', NextButtonText: 'Next'});
+    $('.lightbox').lightbox({ margin: 20, nav: false, blur: true, minSize: 480 });
 ```
 
 * margin - int - default 50. Minimum margin around the image
