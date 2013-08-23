@@ -105,12 +105,8 @@ Thanks To
 --------
 I'd like to thank [Matthew Hartman](http://www.matthewhartman.com.au/), [imiric](https://github.com/imiric) et all for contributing a number of improvements to the lightbox.
 
-License
+MIT License
 --------
-
-Licensed under the Creative Commons Attribution 2.5 License - http://creativecommons.org/licenses/by/2.5/
-
-Free for use in both personal and commercial projects.
-Attribution requires leaving author name, author homepage link, and the license info intact.
+This plugin is released under the MIT License. Enjoy. 
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5d72f21aaa7123a5ee228de20ecc2e53 "githalytics.com")](http://githalytics.com/duncanmcdougall/Responsive-Lightbox)
