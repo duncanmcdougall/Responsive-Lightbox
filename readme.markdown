@@ -107,6 +107,6 @@ I'd like to thank [Matthew Hartman](http://www.matthewhartman.com.au/), [imiric]
 
 MIT License
 --------
-This plugin is released under the MIT License. Enjoy. 
+This plugin is released under the [MIT License](http://duncanmcdougall.mit-license.org/). Enjoy. 
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5d72f21aaa7123a5ee228de20ecc2e53 "githalytics.com")](http://githalytics.com/duncanmcdougall/Responsive-Lightbox)
