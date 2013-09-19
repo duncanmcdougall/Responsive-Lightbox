@@ -14,6 +14,11 @@ Dependencies
 -------------
 jQuery >= 1.4
 
+Browser Support
+-------------
+IE7+
+
+
 Usage
 ------
 
