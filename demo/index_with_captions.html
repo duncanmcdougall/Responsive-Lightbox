@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../jquery.lightbox.css">
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+      font-size: 1rem;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .gallery {
+      list-style: none;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+    }
+    .gallery li {
+      float: left;
+      margin: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Responsive Lightbox</h1>
+
+  <ul class="gallery">
+    <li>
+      <a href="images/sample_a.jpg" data-caption="This is Venice. This is Venice. This is Venice. This is Venice. This is Venice">
+        <img src="images/sample_a_thumb.jpg" alt="Image">
+      </a>
+    </li>
+    <li>
+      <a href="images/sample_b.jpg" data-caption="A photo from London">
+        <img src="images/sample_b_thumb.jpg" alt="Image">
+      </a>
+    </li>
+    <li>
+      <a href="images/sample_c.jpg" data-caption="This one's from Brussels">
+        <img src="images/sample_c_thumb.jpg" alt="Image">
+      </a>
+    </li>
+    <li>
+      <a href="images/sample_d.jpg" data-caption="Another London snap">
+        <img src="images/sample_d_thumb.jpg" alt="Image">
+      </a>
+    </li>
+  </ul>
+  <footer>
+    <p>Lightbox Plugin and photos by <a href="http://www.twitter.com/duncanmcdougall">Duncan McDougall</a></p>
+  </footer>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="../jquery.lightbox.js"></script>
+<script>
+  // Initiate Lightbox
+  $(function() {
+    $('.gallery a').lightbox(); 
+  });
+</script>
+</body>
+</html>

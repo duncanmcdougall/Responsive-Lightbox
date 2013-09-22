@@ -63,6 +63,15 @@ Options
 * blur - bool - default true. Blur other content when open using css filter
 * minSize - int - default 0. Min window width or height to open lightbox. Below threshold will open image in a new tab.
 
+Captions
+------
+
+Add your captions as a data attribute to the anchor. e.g.
+
+```html
+    <a href="myimage.jpg" data-caption="This is a picture of a cat" >
+```
+
 Contributing
 ------
 

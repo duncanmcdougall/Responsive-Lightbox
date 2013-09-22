@@ -30,7 +30,7 @@
             image: null,
             current: null,
             locked: false,
-			selector: "#lightbox",
+            caption: null,
 			
             init: function (items) {
                 plugin.items = items;
@@ -38,16 +38,18 @@
 
                 if (!plugin.lightbox) {
                     $('body').append(
-                      '<div id="lightbox" class='+plugin.selector+' style="display:none;">'+
+                      '<div id="lightbox" style="display:none;">'+
                       '<a href="#" class="lightbox-close lightbox-button"></a>' +
                       '<div class="lightbox-nav">'+
                       '<a href="#" class="lightbox-previous lightbox-button"></a>' +
                       '<a href="#" class="lightbox-next lightbox-button"></a>' +
                       '</div>' +
+                      '<div href="#" class="lightbox-caption"><p></p></div>' +
                       '</div>'
                     );
 
-                    plugin.lightbox = $("."+plugin.selector);
+                    plugin.lightbox = $("#lightbox");
+                    plugin.caption = $('.lightbox-caption', plugin.lightbox);
                 }
 
                 if (plugin.items.length > 1 && opts.nav) {
@@ -74,7 +76,18 @@
                     plugin.lightbox.append(img);
                     plugin.image = $("img", plugin.lightbox).hide();
                     plugin.resizeImage();
+                    plugin.setCaption();
                 });
+            },
+
+            setCaption: function () {
+                var caption = $(plugin.current).data('caption');
+                if(!!caption && caption.length > 0) {
+                    plugin.caption.fadeIn();
+                    $('p', plugin.caption).text(caption);
+                }else{
+                    plugin.caption.hide();
+                }
             },
 
             resizeImage: function () {

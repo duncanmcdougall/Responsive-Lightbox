@@ -30,6 +30,29 @@ body.blurred > * {
 	top: 48%;
 	left: 50%;
 }
+.lightbox-caption {
+	display: none;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	z-index: 1000;
+	background: #000;
+	background: rgba(0,0,0,0.7);
+}
+
+.lightbox-caption p {
+	margin: 0 auto;
+	max-width: 70%;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	padding: 10px;
+	color: #fff;
+	font-size: 12px;
+	line-height: 18px;
+}
 
 .lightbox-button {
 	position: absolute;
