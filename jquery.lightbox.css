@@ -9,6 +9,7 @@
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAIElEQVQ4T2NkYGDYDMRkA8ZRAxhGw4BhNAyA+WAYpAMAIFgLQfO9BoEAAAAASUVORK5CYII=);
 	background: rgba(0, 0, 0, 0.7);
 	-webkit-filter: none !important;
+	z-index: 9997;
 }
 #lightbox img {
 	display: block;
@@ -37,7 +38,7 @@ body.blurred > * {
 	bottom: 0;
 	width: 100%;
 	text-align: center;
-	z-index: 1000;
+	z-index: 9998;
 	background: #000;
 	background: rgba(0,0,0,0.7);
 }
