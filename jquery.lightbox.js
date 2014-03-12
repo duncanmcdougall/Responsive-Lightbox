@@ -51,18 +51,16 @@
                     plugin.caption = $('.lightbox-caption', plugin.lightbox);
                 }
 
-                if (plugin.items.length > 1 && opts.nav) {
-                    $('.lightbox-nav', plugin.lightbox).show();
-                } else {
-                    $('.lightbox-nav', plugin.lightbox).hide();
-                }
+                $('.lightbox-nav', plugin.lightbox).toggle(
+                    plugin.items.length > 1 && opts.nav
+                );
 
                 plugin.bindEvents();
 
             },
 
             loadImage: function () {
-                if(opts.blur) {
+                if (opts.blur) {
                     $("body").addClass("blurred");
                 }
                 $("img", plugin.lightbox).remove();
@@ -81,7 +79,7 @@
 
             setCaption: function () {
                 var caption = $(plugin.current).data('caption');
-                if(!!caption && caption.length > 0) {
+                if (caption) {
                     plugin.caption.fadeIn();
                     $('p', plugin.caption).text(caption);
                 }else{
