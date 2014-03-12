@@ -31,7 +31,7 @@
             current: null,
             locked: false,
             caption: null,
-			
+
             init: function (items) {
                 plugin.items = items;
 
@@ -152,7 +152,7 @@
                     plugin.loadImage();
 
                     // Bind Keyboard Shortcuts
-                    $(document).on('keydown', function (e) {
+                    $(document).on('keydown.lightbox', function (e) {
                         // Close lightbox with ESC
                         if (e.keyCode === 27) {
                             plugin.close();
@@ -202,7 +202,7 @@
             },
 
             close: function () {
-                $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
+                $(document).off('keydown.lightbox'); // Unbind all key events each time the lightbox is closed
                 $(plugin.lightbox).fadeOut('fast');
                 $('body').removeClass('blurred');
             }
