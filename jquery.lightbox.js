@@ -34,7 +34,6 @@
 			
             init: function (items) {
                 plugin.items = items;
-				plugin.selector = "lightbox-"+Math.random().toString().replace('.','');
 
                 if (!plugin.lightbox) {
                     $('body').append(
