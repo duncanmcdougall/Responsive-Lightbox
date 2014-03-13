@@ -111,11 +111,13 @@
                 // console.log('Loaded image', this.src);
 
                 plugin.loading.stop().fadeOut('fast');
-                plugin.img[0].src = this.src;
+                plugin.img.fadeOut('fast', function () {
+                    plugin.img[0].src = plugin.cache.src;
+                }).fadeIn('fast');
             });
 
             this.elements.each( function (index, element) {
-                $(element).on('click', index, function (e) {
+                $(element).click(index, function (e) {
                     e.preventDefault();
 
                     plugin.show();
@@ -133,7 +135,7 @@
                 switch ( e.which ) {
                     // Esc
                     case 27:
-                        plugin.close();
+                        plugin.hide();
                         break;
                     // Left
                     case 37:
@@ -149,23 +151,24 @@
             // Add click state on overlay background only
             this.lightbox.add( this.wrapper ).on('click', function (e) {
                 if ( this === e.target ) {
-                    plugin.close();
+                    plugin.hide();
                 }
             });
 
-            // Previous click
-            this.prevButton.on('click', function () {
+            this.prevButton.click(function () {
                 plugin.prev();
             });
 
-            // Next click
-            this.nextButton.on('click', function () {
+            this.img.click(function (e) {
                 plugin.next();
             });
 
-            // Close click
-            this.closeButton.on('click', function () {
-                plugin.close();
+            this.nextButton.click(function () {
+                plugin.next();
+            });
+
+            this.closeButton.click(function () {
+                plugin.hide();
             });
         };
 
@@ -182,13 +185,17 @@
 
             // load current image
             loadImage: function () {
-                var plugin = this,
-                    title = this.current().data('title'),
+                var title = this.current().data('title'),
                     url = this.current().attr('href');
 
                 // console.log('Loading image', url);
 
                 this.loading.stop().fadeIn('fast');
+
+                // hide the img border if no image laoded
+                if ( !this.img[0].src ) {
+                    this.img.hide();
+                }
 
                 // if src does not change, will not trigger load event
                 this.cache.src = '';
@@ -201,6 +208,11 @@
                 } else {
                     this.title.fadeOut('fast');
                 }
+
+                // adjust wrapper height with title
+                this.wrapper.css('bottom',
+                    title ? this.title.height() : 0
+                );
             },
 
             next: function () {
@@ -223,7 +235,7 @@
                 this.loadImage( this.current().attr('href') );
             },
 
-            close: function () {
+            hide: function () {
                 this.lightbox.fadeOut('fast');
                 this.visible = false;
             }
