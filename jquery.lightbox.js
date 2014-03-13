@@ -1,4 +1,4 @@
-/*!
+/*
  * jquery.lightbox.js
  * https://github.com/duncanmcdougall/Responsive-Lightbox
  * Copyright 2013 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
@@ -16,204 +16,236 @@
 
     $.fn.lightbox = function (options) {
 
-        var opts = {
-            margin: 50,
-            nav: true,
-            blur: true,
-            minSize: 0
+        // the key of $.data()
+        var dataKey = 'plugin-lightbox',
+
+        // default options
+            defaults = {
+                nav: true,
+                className: 'lightbox',
+                wrapperClass: 'lightbox-wrapper',
+                loadingClass: 'lightbox-loading',
+                imgClass: 'lightbox-image',
+                closeButtonClass: 'lightbox-close',
+                prevButtonClass: 'lightbox-prev',
+                nextButtonClass: 'lightbox-next',
+                titleClass: 'lightbox-title'
+            };
+
+        // plugin init
+        var Plugin = function (elements, options) {
+            if ( elements.length === 0 ) return;
+
+            console.log('Lightbox init');
+
+            // use for closure
+            var plugin = this;
+
+            this.currentIndex = 0;
+            this.visible = false;
+            // cache loading image, use instance to store because we want only 1 cache at same time
+            this.cache = new Image();
+            this.elements = elements;
+            this.options = $.extend( {}, defaults, options );
+
+            // hide nav if only 1 image
+            this.options.nav = this.options.nav && this.elements.length > 1;
+
+            // create lightbox element
+            this.lightbox = $('<div>')
+                .addClass(this.options.className)
+                .hide();
+
+            this.title = $('<div>', {
+                'class': this.options.titleClass
+            });
+
+            this.wrapper = $('<div>', {
+                'class': this.options.wrapperClass
+            });
+
+            this.loading = $('<div>', {
+                'class': this.options.loadingClass
+            });
+
+            // use spin.js to create loading animate
+            if (typeof Spinner === 'function') {
+                new Spinner({
+                    lines: 12,
+                    width: 4,
+                    radius: 16,
+                    color: '#fff'
+                }).spin( this.loading[0] );
+            }
+
+            this.img = $('<img>', {
+                'class': this.options.imgClass
+            });
+
+            this.closeButton = $('<div>', {
+                'class': this.options.closeButtonClass
+            });
+
+            this.prevButton = $('<div>', {
+                'class': this.options.prevButtonClass
+            }).toggle( this.options.nav );
+
+            this.nextButton = $('<div>', {
+                'class': this.options.nextButtonClass
+            }).toggle( this.options.nav );
+
+            this.lightbox
+                .append(
+                    this.wrapper
+                        .append( this.loading )
+                        .append( this.img )
+                )
+                .append( this.title )
+                .append( this.prevButton )
+                .append( this.nextButton )
+                .append( this.closeButton );
+
+            $('body').append( this.lightbox );
+
+            $( this.cache ).load(function (e) {
+                // console.log('Loaded image', this.src);
+
+                plugin.loading.stop().fadeOut('fast');
+                plugin.img.fadeOut('fast', function () {
+                    plugin.img[0].src = plugin.cache.src;
+                }).fadeIn('fast');
+            });
+
+            this.elements.each( function (index, element) {
+                $(element).click(index, function (e) {
+                    e.preventDefault();
+
+                    plugin.show();
+                    plugin.currentIndex = e.data;
+                    plugin.loadImage();
+                });
+            });
+
+            // Bind Keyboard Shortcuts
+            $( document ).on('keydown.lightbox', function (e) {
+                if ( !plugin.visible ) {
+                    return;
+                }
+
+                switch ( e.which ) {
+                    // Esc
+                    case 27:
+                        plugin.hide();
+                        break;
+                    // Left
+                    case 37:
+                        plugin.prev();
+                        break;
+                    // Right
+                    case 39:
+                        plugin.next();
+                        break;
+                }
+            });
+
+            // Add click state on overlay background only
+            this.lightbox.add( this.wrapper ).on('click', function (e) {
+                if ( this === e.target ) {
+                    plugin.hide();
+                }
+            });
+
+            this.prevButton.click(function () {
+                plugin.prev();
+            });
+
+            this.img.click(function (e) {
+                plugin.next();
+            });
+
+            this.nextButton.click(function () {
+                plugin.next();
+            });
+
+            this.closeButton.click(function () {
+                plugin.hide();
+            });
         };
 
-        var plugin = {
-
-            items: [],
-            lightbox: null,
-            image: null,
-            current: null,
-            locked: false,
-            caption: null,
-			
-            init: function (items) {
-                plugin.items = items;
-				plugin.selector = "lightbox-"+Math.random().toString().replace('.','');
-
-                if (!plugin.lightbox) {
-                    $('body').append(
-                      '<div id="lightbox" style="display:none;">'+
-                      '<a href="#" class="lightbox-close lightbox-button"></a>' +
-                      '<div class="lightbox-nav">'+
-                      '<a href="#" class="lightbox-previous lightbox-button"></a>' +
-                      '<a href="#" class="lightbox-next lightbox-button"></a>' +
-                      '</div>' +
-                      '<div href="#" class="lightbox-caption"><p></p></div>' +
-                      '</div>'
-                    );
-
-                    plugin.lightbox = $("#lightbox");
-                    plugin.caption = $('.lightbox-caption', plugin.lightbox);
-                }
-
-                if (plugin.items.length > 1 && opts.nav) {
-                    $('.lightbox-nav', plugin.lightbox).show();
-                } else {
-                    $('.lightbox-nav', plugin.lightbox).hide();
-                }
-
-                plugin.bindEvents();
-
+        Plugin.prototype = {
+            current: function () {
+                return $( this.elements[ this.currentIndex ] );
             },
 
+            // display lightbox
+            show: function () {
+                this.lightbox.fadeIn('fast');
+                this.visible = true;
+            },
+
+            // load current image
             loadImage: function () {
-                if(opts.blur) {
-                    $("body").addClass("blurred");
-                }
-                $("img", plugin.lightbox).remove();
-                plugin.lightbox.fadeIn('fast').append('<span class="lightbox-loading"></span>');
+                var title = this.current().data('title'),
+                    url = this.current().attr('href');
 
-                var img = $('<img src="' + $(plugin.current).attr('href') + '" draggable="false">');
+                // console.log('Loading image', url);
 
-                $(img).load(function () {
-                    $('.lightbox-loading').remove();
-                    plugin.lightbox.append(img);
-                    plugin.image = $("img", plugin.lightbox).hide();
-                    plugin.resizeImage();
-                    plugin.setCaption();
-                });
-            },
+                this.loading.stop().fadeIn('fast');
 
-            setCaption: function () {
-                var caption = $(plugin.current).data('caption');
-                if(!!caption && caption.length > 0) {
-                    plugin.caption.fadeIn();
-                    $('p', plugin.caption).text(caption);
-                }else{
-                    plugin.caption.hide();
-                }
-            },
-
-            resizeImage: function () {
-                var ratio, wHeight, wWidth, iHeight, iWidth;
-                wHeight = $(window).height() - opts.margin;
-                wWidth = $(window).outerWidth(true) - opts.margin;
-                plugin.image.width('').height('');
-                iHeight = plugin.image.height();
-                iWidth = plugin.image.width();
-                if (iWidth > wWidth) {
-                    ratio = wWidth / iWidth;
-                    iWidth = wWidth;
-                    iHeight = Math.round(iHeight * ratio);
-                }
-                if (iHeight > wHeight) {
-                    ratio = wHeight / iHeight;
-                    iHeight = wHeight;
-                    iWidth = Math.round(iWidth * ratio);
+                // hide the img border if no image laoded
+                if ( !this.img[0].src ) {
+                    this.img.hide();
                 }
 
-                plugin.image.width(iWidth).height(iHeight).css({
-						'top': ($(window).height() - plugin.image.outerHeight()) / 2 + 'px',
-						'left': ($(window).width() - plugin.image.outerWidth()) / 2 + 'px'
-					}).show();
-                plugin.locked = false;
-            },
+                // if src does not change, will not trigger load event
+                this.cache.src = '';
+                this.cache.src = url;
 
-            getCurrentIndex: function () {
-                return $.inArray(plugin.current, plugin.items);
+                if ( title ) {
+                    this.title
+                        .text( title )
+                        .fadeIn('fast');
+                } else {
+                    this.title.fadeOut('fast');
+                }
+
+                // adjust wrapper height with title
+                this.wrapper.css('bottom',
+                    title ? this.title.height() : 0
+                );
             },
 
             next: function () {
-                if (plugin.locked) {
-                    return false;
+                this.currentIndex++;
+
+                if ( this.currentIndex >= this.elements.length ) {
+                    this.currentIndex = 0;
                 }
-                plugin.locked = true;
-                if (plugin.getCurrentIndex() >= plugin.items.length - 1) {
-                    $(plugin.items[0]).click();
-                } else {
-                    $(plugin.items[plugin.getCurrentIndex() + 1]).click();
-                }
+
+                this.loadImage( this.current().attr('href') );
             },
 
-            previous: function () {
-                if (plugin.locked) {
-                    return false;
+            prev: function () {
+                this.currentIndex--;
+
+                if ( this.currentIndex < 0 ) {
+                    this.currentIndex = this.elements.length - 1;
                 }
-                plugin.locked = true;
-                if (plugin.getCurrentIndex() <= 0) {
-                    $(plugin.items[plugin.items.length - 1]).click();
-                } else {
-                    $(plugin.items[plugin.getCurrentIndex() - 1]).click();
-                }
+
+                this.loadImage( this.current().attr('href') );
             },
 
-            bindEvents: function () {
-                $(plugin.items).click(function (e) {
-                    if(!$("#lightbox").is(":visible") && ($(window).width() < opts.minSize || $(window).height() < opts.minSize)) {
-                        $(this).attr("target", "_blank");
-                        return;
-                    }
-                    var self = $(this)[0];
-                    e.preventDefault();
-                    plugin.current = self;
-                    plugin.loadImage();
-
-                    // Bind Keyboard Shortcuts
-                    $(document).on('keydown', function (e) {
-                        // Close lightbox with ESC
-                        if (e.keyCode === 27) {
-                            plugin.close();
-                        }
-                        // Go to next image pressing the right key
-                        if (e.keyCode === 39) {
-                            plugin.next();
-                        }
-                        // Go to previous image pressing the left key
-                        if (e.keyCode === 37) {
-                            plugin.previous();
-                        }
-                    });
-                });
-
-                // Add click state on overlay background only
-                plugin.lightbox.on('click', function (e) {
-                    if (this === e.target) {
-                        plugin.close();
-                    }
-                });
-
-                // Previous click
-                $(plugin.lightbox).on('click', '.lightbox-previous', function () {
-                    plugin.previous();
-                    return false;
-                });
-
-                // Next click
-                $(plugin.lightbox).on('click', '.lightbox-next', function () {
-                    plugin.next();
-                    return false;
-                });
-
-                // Close click
-                $(plugin.lightbox).on('click', '.lightbox-close', function () {
-                    plugin.close();
-                    return false;
-                });
-
-                $(window).resize(function () {
-                    if (!plugin.image) {
-                        return;
-                    }
-                    plugin.resizeImage();
-                });
-            },
-
-            close: function () {
-                $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
-                $(plugin.lightbox).fadeOut('fast');
-                $('body').removeClass('blurred');
+            hide: function () {
+                this.lightbox.fadeOut('fast');
+                this.visible = false;
             }
         };
 
-        $.extend(opts, options);
+        if ( !this.data( dataKey ) ) {
+            this.data( dataKey, new Plugin(this, options) );
+        }
 
-        plugin.init(this);
+        return this;
     };
 
 })(jQuery);
