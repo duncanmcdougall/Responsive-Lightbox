@@ -29,7 +29,7 @@
                 closeButtonClass: 'lightbox-close',
                 prevButtonClass: 'lightbox-prev',
                 nextButtonClass: 'lightbox-next',
-                captionClass: 'lightbox-caption'
+                titleClass: 'lightbox-title'
             };
 
         // plugin init
@@ -56,8 +56,8 @@
                 .addClass(this.options.className)
                 .hide();
 
-            this.caption = $('<div>', {
-                'class': this.options.captionClass
+            this.title = $('<div>', {
+                'class': this.options.titleClass
             });
 
             this.wrapper = $('<div>', {
@@ -100,7 +100,7 @@
                         .append( this.loading )
                         .append( this.img )
                 )
-                .append( this.caption )
+                .append( this.title )
                 .append( this.prevButton )
                 .append( this.nextButton )
                 .append( this.closeButton );
@@ -183,7 +183,7 @@
             // load current image
             loadImage: function () {
                 var plugin = this,
-                    caption = this.current().data('caption'),
+                    title = this.current().data('title'),
                     url = this.current().attr('href');
 
                 // console.log('Loading image', url);
@@ -194,12 +194,12 @@
                 this.cache.src = '';
                 this.cache.src = url;
 
-                if ( caption ) {
-                    this.caption
-                        .text( caption )
+                if ( title ) {
+                    this.title
+                        .text( title )
                         .fadeIn('fast');
                 } else {
-                    this.caption.fadeOut('fast');
+                    this.title.fadeOut('fast');
                 }
             },
 
