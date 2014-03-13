@@ -31,38 +31,36 @@
             current: null,
             locked: false,
             caption: null,
-			
+
             init: function (items) {
                 plugin.items = items;
 
                 if (!plugin.lightbox) {
-                    $('body').append(
-                      '<div id="lightbox" style="display:none;">'+
-                      '<a href="#" class="lightbox-close lightbox-button"></a>' +
-                      '<div class="lightbox-nav">'+
-                      '<a href="#" class="lightbox-previous lightbox-button"></a>' +
-                      '<a href="#" class="lightbox-next lightbox-button"></a>' +
-                      '</div>' +
-                      '<div href="#" class="lightbox-caption"><p></p></div>' +
-                      '</div>'
+                    plugin.lightbox = $(
+                        '<div id="lightbox" style="display:none;">'+
+                        '<a href="#" class="lightbox-close lightbox-button"></a>' +
+                        '<div class="lightbox-nav">'+
+                        '<a href="#" class="lightbox-previous lightbox-button"></a>' +
+                        '<a href="#" class="lightbox-next lightbox-button"></a>' +
+                        '</div>' +
+                        '<div href="#" class="lightbox-caption"><p></p></div>' +
+                        '</div>'
                     );
 
-                    plugin.lightbox = $("#lightbox");
+                    $('body').append(plugin.lightbox);
                     plugin.caption = $('.lightbox-caption', plugin.lightbox);
                 }
 
-                if (plugin.items.length > 1 && opts.nav) {
-                    $('.lightbox-nav', plugin.lightbox).show();
-                } else {
-                    $('.lightbox-nav', plugin.lightbox).hide();
-                }
+                $('.lightbox-nav', plugin.lightbox).toggle(
+                    plugin.items.length > 1 && opts.nav
+                );
 
                 plugin.bindEvents();
 
             },
 
             loadImage: function () {
-                if(opts.blur) {
+                if (opts.blur) {
                     $("body").addClass("blurred");
                 }
                 $("img", plugin.lightbox).remove();
@@ -81,7 +79,7 @@
 
             setCaption: function () {
                 var caption = $(plugin.current).data('caption');
-                if(!!caption && caption.length > 0) {
+                if (caption) {
                     plugin.caption.fadeIn();
                     $('p', plugin.caption).text(caption);
                 }else{
@@ -154,7 +152,7 @@
                     plugin.loadImage();
 
                     // Bind Keyboard Shortcuts
-                    $(document).on('keydown', function (e) {
+                    $(document).on('keydown.lightbox', function (e) {
                         // Close lightbox with ESC
                         if (e.keyCode === 27) {
                             plugin.close();
@@ -204,7 +202,7 @@
             },
 
             close: function () {
-                $(document).off('keydown'); // Unbind all key events each time the lightbox is closed
+                $(document).off('keydown.lightbox'); // Unbind all key events each time the lightbox is closed
                 $(plugin.lightbox).fadeOut('fast');
                 $('body').removeClass('blurred');
             }
