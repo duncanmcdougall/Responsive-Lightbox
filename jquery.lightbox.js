@@ -35,10 +35,10 @@
             init: function (items) {
                 plugin.items = items;
 				plugin.selector = "lightbox-"+Math.random().toString().replace('.','');
-
+                var id = 'lightbox-' + Math.floor((Math.random() * 100000) + 1);
                 if (!plugin.lightbox) {
                     $('body').append(
-                      '<div id="lightbox" style="display:none;">'+
+                      '<div id="'+id+'" class="lightbox" style="display:none;">'+
                       '<a href="#" class="lightbox-close lightbox-button"></a>' +
                       '<div class="lightbox-nav">'+
                       '<a href="#" class="lightbox-previous lightbox-button"></a>' +
@@ -48,7 +48,7 @@
                       '</div>'
                     );
 
-                    plugin.lightbox = $("#lightbox");
+                    plugin.lightbox = $("#"+id);
                     plugin.caption = $('.lightbox-caption', plugin.lightbox);
                 }
 
@@ -145,7 +145,7 @@
 
             bindEvents: function () {
                 $(plugin.items).click(function (e) {
-                    if(!$("#lightbox").is(":visible") && ($(window).width() < opts.minSize || $(window).height() < opts.minSize)) {
+                    if(!plugin.lightbox.is(":visible") && ($(window).width() < opts.minSize || $(window).height() < opts.minSize)) {
                         $(this).attr("target", "_blank");
                         return;
                     }

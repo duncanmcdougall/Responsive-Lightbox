@@ -1,4 +1,4 @@
-#lightbox {
+.lightbox {
 	cursor: pointer;
 	position: fixed;
 	width: 100%;
@@ -11,7 +11,7 @@
 	-webkit-filter: none !important;
 	z-index: 9997;
 }
-#lightbox img {
+.lightbox img {
 	display: block;
 	position: absolute;
 	border: 5px solid #fff;
