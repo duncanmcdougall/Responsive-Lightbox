@@ -72,6 +72,15 @@ Add your captions as a data attribute to the anchor. e.g.
     <a href="myimage.jpg" data-caption="This is a picture of a cat" >
 ```
 
+Installing with Bower
+------
+
+If bower is your thing you can install using the following command
+
+```bash
+bower install responsive-lightbox
+```
+
 Contributing
 ------
 
