@@ -1,7 +1,7 @@
 /*!
- * jquery.lightbox.js
+ * jquery.lightbox.js v1.1
  * https://github.com/duncanmcdougall/Responsive-Lightbox
- * Copyright 2013 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
+ * Copyright 2015 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
  *
  * Options: 
  * margin - int - default 50. Minimum margin around the image
