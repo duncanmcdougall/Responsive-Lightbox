@@ -1,5 +1,5 @@
 /*!
- * jquery.lightbox.js v1.1
+ * jquery.lightbox.js v1.2
  * https://github.com/duncanmcdougall/Responsive-Lightbox
  * Copyright 2015 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
  *
@@ -39,23 +39,21 @@
                 if (!plugin.lightbox) {
                     $('body').append(
                       '<div id="'+id+'" class="lightbox" style="display:none;">'+
-                      '<a href="#" class="lightbox-close lightbox-button"></a>' +
-                      '<div class="lightbox-nav">'+
-                      '<a href="#" class="lightbox-previous lightbox-button"></a>' +
-                      '<a href="#" class="lightbox-next lightbox-button"></a>' +
-                      '</div>' +
-                      '<div href="#" class="lightbox-caption"><p></p></div>' +
+                      '<a href="#" class="lightbox__close lightbox__button"></a>' +
+                      '<a href="#" class="lightbox__nav lightbox__nav--prev lightbox__button"></a>' +
+                      '<a href="#" class="lightbox__nav lightbox__nav--next lightbox__button"></a>' +
+                      '<div href="#" class="lightbox__caption"><p></p></div>' +
                       '</div>'
                     );
 
                     plugin.lightbox = $("#"+id);
-                    plugin.caption = $('.lightbox-caption', plugin.lightbox);
+                    plugin.caption = $('.lightbox__caption', plugin.lightbox);
                 }
 
                 if (plugin.items.length > 1 && opts.nav) {
-                    $('.lightbox-nav', plugin.lightbox).show();
+                    $('.lightbox__nav', plugin.lightbox).show();
                 } else {
-                    $('.lightbox-nav', plugin.lightbox).hide();
+                    $('.lightbox__nav', plugin.lightbox).hide();
                 }
 
                 plugin.bindEvents();
@@ -67,12 +65,12 @@
                     $("body").addClass("blurred");
                 }
                 $("img", plugin.lightbox).remove();
-                plugin.lightbox.fadeIn('fast').append('<span class="lightbox-loading"></span>');
+                plugin.lightbox.fadeIn('fast').append('<span class="lightbox__loading"></span>');
 
                 var img = $('<img src="' + $(plugin.current).attr('href') + '" draggable="false">');
 
                 $(img).load(function () {
-                    $('.lightbox-loading').remove();
+                    $('.lightbox__loading').remove();
                     plugin.lightbox.append(img);
                     plugin.image = $("img", plugin.lightbox).hide();
                     plugin.resizeImage();
@@ -179,19 +177,19 @@
                 });
 
                 // Previous click
-                $(plugin.lightbox).on('click', '.lightbox-previous', function () {
+                $(plugin.lightbox).on('click', '.lightbox__nav--prev', function () {
                     plugin.previous();
                     return false;
                 });
 
                 // Next click
-                $(plugin.lightbox).on('click', '.lightbox-next', function () {
+                $(plugin.lightbox).on('click', '.lightbox__nav--next', function () {
                     plugin.next();
                     return false;
                 });
 
                 // Close click
-                $(plugin.lightbox).on('click', '.lightbox-close', function () {
+                $(plugin.lightbox).on('click', '.lightbox__close', function () {
                     plugin.close();
                     return false;
                 });

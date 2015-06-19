@@ -11,6 +11,7 @@
 	-webkit-filter: none !important;
 	z-index: 9997;
 }
+
 .lightbox img {
 	display: block;
 	position: absolute;
@@ -18,20 +19,23 @@
 	box-shadow: 0 0 20px #000;
 	border-radius: 1px;
 }
+
 body.blurred > * {
   -webkit-filter: blur(2px);
   -webkit-transform: translate3d(0, 0, 0);
 }
-.lightbox-loading {
+
+.lightbox__loading {
 	background: url(loading.gif) center center no-repeat;
-	width: 31px;
-	height: 31px;
+	width: 32px;
+	height: 32px;
 	margin: -16px 0 0 -16px;
 	position: absolute;
-	top: 48%;
+	top: 50%;
 	left: 50%;
 }
-.lightbox-caption {
+
+.lightbox__caption {
 	display: none;
 	position: absolute;
 	left: 0;
@@ -43,7 +47,7 @@ body.blurred > * {
 	background: rgba(0,0,0,0.7);
 }
 
-.lightbox-caption p {
+.lightbox__caption p {
 	margin: 0 auto;
 	max-width: 70%;
 	display: inline-block;
@@ -55,7 +59,7 @@ body.blurred > * {
 	line-height: 18px;
 }
 
-.lightbox-button {
+.lightbox__button {
 	position: absolute;
 	z-index: 9999;
 	background: no-repeat center center;
@@ -68,8 +72,8 @@ body.blurred > * {
 	transition: 		all 0.3s;
 }
 
-.lightbox-button:hover,
-.lightbox-button:focus {
+.lightbox__button:hover,
+.lightbox__button:focus {
 	opacity: 1;
 	-webkit-transform: scale(1.4);
 	-moz-transform: scale(1.4);
@@ -77,18 +81,24 @@ body.blurred > * {
 	transform: scale(1.4);
 }
 
-.lightbox-close {
+.lightbox__close {
 	right: 10px;
 	top: 10px;
 	background-image: url('close.png');
 }
-.lightbox-next {
+
+.lightbox__nav {
+    top: 50%;
+    margin-top: -16px;
+}
+
+.lightbox__nav--next {
 	right: 10px;
-	top: 48%;
 	background-image: url('next.png');
 }
-.lightbox-previous {
+
+.lightbox__nav--prev {
 	left: 10px;
-	top: 48%;
 	background-image: url('previous.png');
+}
 }
