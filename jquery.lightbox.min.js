@@ -1,5 +1,5 @@
 /*!
- * jquery.lightbox.js v1.2
+ * jquery.lightbox.js v1.3
  * https://github.com/duncanmcdougall/Responsive-Lightbox
  * Copyright 2015 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
  *
