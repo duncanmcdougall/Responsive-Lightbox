@@ -1,0 +1,22 @@
+    body {
+        font-family: sans-serif;
+        font-size: 1rem;
+        color: #333;
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .gallery {
+        list-style: none;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .gallery li {
+        float: left;
+        margin: 4px;
+    }
