@@ -34,19 +34,23 @@
 			
             init: function (items) {
                 plugin.items = items;
-				plugin.selector = "lightbox-"+Math.random().toString().replace('.','');
                 var id = 'lightbox-' + Math.floor((Math.random() * 100000) + 1);
                 if (!plugin.lightbox) {
-                    $('body').append(
-                      '<div id="'+id+'" class="lightbox" style="display:none;">'+
-                      '<a href="#" class="lightbox__close lightbox__button"></a>' +
-                      '<a href="#" class="lightbox__nav lightbox__nav--prev lightbox__button"></a>' +
-                      '<a href="#" class="lightbox__nav lightbox__nav--next lightbox__button"></a>' +
-                      '<div href="#" class="lightbox__caption"><p></p></div>' +
-                      '</div>'
-                    );
+                    plugin.lightbox = $('body').find('.bodyGlobalLightbox');
 
-                    plugin.lightbox = $("#"+id);
+                    if(plugin.lightbox.length === 0){
+                        $('body').append(
+                          '<div id="'+id+'" class="lightbox bodyGlobalLightbox" style="display:none;">'+
+                          '<a href="#" class="lightbox__close lightbox__button"></a>' +
+                          '<a href="#" class="lightbox__nav lightbox__nav--prev lightbox__button"></a>' +
+                          '<a href="#" class="lightbox__nav lightbox__nav--next lightbox__button"></a>' +
+                          '<div href="#" class="lightbox__caption"><p></p></div>' +
+                          '</div>'
+                        );
+
+                        plugin.lightbox = $("#"+id);
+                    }
+
                     plugin.caption = $('.lightbox__caption', plugin.lightbox);
                 }
 
