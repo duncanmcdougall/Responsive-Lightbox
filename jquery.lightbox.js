@@ -31,28 +31,23 @@
             current: null,
             locked: false,
             caption: null,
-			
+
             init: function (items) {
                 plugin.items = items;
                 var id = 'lightbox-' + Math.floor((Math.random() * 100000) + 1);
-                if (!plugin.lightbox) {
-                    plugin.lightbox = $('body').find('.bodyGlobalLightbox');
 
-                    if(plugin.lightbox.length === 0){
-                        $('body').append(
-                          '<div id="'+id+'" class="lightbox bodyGlobalLightbox" style="display:none;">'+
-                          '<a href="#" class="lightbox__close lightbox__button"></a>' +
-                          '<a href="#" class="lightbox__nav lightbox__nav--prev lightbox__button"></a>' +
-                          '<a href="#" class="lightbox__nav lightbox__nav--next lightbox__button"></a>' +
-                          '<div href="#" class="lightbox__caption"><p></p></div>' +
-                          '</div>'
-                        );
+                $('body').append(
+                    '<div id="' + id + '" class="lightbox" style="display:none;">' +
+                    '<a href="#" class="lightbox__close lightbox__button"></a>' +
+                    '<a href="#" class="lightbox__nav lightbox__nav--prev lightbox__button"></a>' +
+                    '<a href="#" class="lightbox__nav lightbox__nav--next lightbox__button"></a>' +
+                    '<div href="#" class="lightbox__caption"><p></p></div>' +
+                    '</div>'
+                );
 
-                        plugin.lightbox = $("#"+id);
-                    }
+                plugin.lightbox = $("#" + id);
 
-                    plugin.caption = $('.lightbox__caption', plugin.lightbox);
-                }
+                plugin.caption = $('.lightbox__caption', plugin.lightbox);
 
                 if (plugin.items.length > 1 && opts.nav) {
                     $('.lightbox__nav', plugin.lightbox).show();
@@ -65,7 +60,7 @@
             },
 
             loadImage: function () {
-                if(opts.blur) {
+                if (opts.blur) {
                     $("body").addClass("blurred");
                 }
                 $("img", plugin.lightbox).remove();
@@ -84,10 +79,10 @@
 
             setCaption: function () {
                 var caption = $(plugin.current).data('caption');
-                if(!!caption && caption.length > 0) {
+                if (!!caption && caption.length > 0) {
                     plugin.caption.fadeIn();
                     $('p', plugin.caption).text(caption);
-                }else{
+                } else {
                     plugin.caption.hide();
                 }
             },
@@ -111,9 +106,9 @@
                 }
 
                 plugin.image.width(iWidth).height(iHeight).css({
-						'top': ($(window).height() - plugin.image.outerHeight()) / 2 + 'px',
-						'left': ($(window).width() - plugin.image.outerWidth()) / 2 + 'px'
-					}).show();
+                    'top': ($(window).height() - plugin.image.outerHeight()) / 2 + 'px',
+                    'left': ($(window).width() - plugin.image.outerWidth()) / 2 + 'px'
+                }).show();
                 plugin.locked = false;
             },
 
@@ -147,7 +142,7 @@
 
             bindEvents: function () {
                 $(plugin.items).click(function (e) {
-                    if(!plugin.lightbox.is(":visible") && ($(window).width() < opts.minSize || $(window).height() < opts.minSize)) {
+                    if (!plugin.lightbox.is(":visible") && ($(window).width() < opts.minSize || $(window).height() < opts.minSize)) {
                         $(this).attr("target", "_blank");
                         return;
                     }
