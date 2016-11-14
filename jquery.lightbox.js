@@ -1,7 +1,7 @@
 /*!
  * jquery.lightbox.js v1.3
  * https://github.com/duncanmcdougall/Responsive-Lightbox
- * Copyright 2015 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
+ * Copyright 2016 Duncan McDougall and other contributors; @license Creative Commons Attribution 2.5
  *
  * Options: 
  * margin - int - default 50. Minimum margin around the image
@@ -68,7 +68,7 @@
 
                 var img = $('<img src="' + $(plugin.current).attr('href') + '" draggable="false">');
 
-                $(img).load(function () {
+                $(img).on('load', function () {
                     $('.lightbox__loading').remove();
                     plugin.lightbox.append(img);
                     plugin.image = $("img", plugin.lightbox).hide();
