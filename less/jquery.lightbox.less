@@ -1,3 +1,5 @@
+@asset-path: ".";
+
 .lightbox {
     cursor: pointer;
     position: fixed;
@@ -27,7 +29,7 @@ body.blurred > * {
 }
 
 .lightbox__loading {
-    background: url(loading.gif) center center no-repeat;
+    background: url("@{asset-path}/loading.gif") center center no-repeat;
     width: 32px;
     height: 32px;
     margin: -16px 0 0 -16px;
@@ -85,7 +87,7 @@ body.blurred > * {
 .lightbox__close {
     right: 10px;
     top: 10px;
-    background-image: url("close.png");
+    background-image: url("@{asset-path}/close.png");
 }
 
 .lightbox__nav {
@@ -95,10 +97,10 @@ body.blurred > * {
 
 .lightbox__nav--next {
     right: 10px;
-    background-image: url("next.png");
+    background-image: url("@{asset-path}/next.png");
 }
 
 .lightbox__nav--prev {
     left: 10px;
-    background-image: url("previous.png");
+    background-image: url("@{asset-path}/previous.png");
 }
