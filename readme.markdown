@@ -1,6 +1,6 @@
 Responsive-Lightbox
 ===================
-by [Duncan McDougall](http://www.duncanmcdougall.co.uk) | [@duncanmcdougall](http://www.twitter.com/duncanmcdougall)
+by [Duncan McDougall](https://www.belter.io) | [@duncanmcdougall](http://www.twitter.com/duncanmcdougall)
 
 jQuery responsive lightbox plugin.
 
