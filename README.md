@@ -12,7 +12,7 @@ Demonstration
 
 Dependencies
 -------------
-jQuery >= 1.4
+Requires jQuery >= 1.4 and < 3
 
 Browser Support
 -------------
