@@ -8,7 +8,7 @@ Shrinks the image to the width & height of the browser. Only handles images so i
 
 Demonstration
 -------------
-[Responsive Lightbox Demo](http://www.duncanmcdougall.co.uk/projects/responsive-lightbox.html)
+[Responsive Lightbox Demo](https://lightbox.belter.io/)
 
 Dependencies
 -------------
