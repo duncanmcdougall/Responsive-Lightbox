@@ -67,13 +67,12 @@
                 plugin.lightbox.fadeIn('fast').append('<span class="lightbox__loading"></span>');
 
                 var img = $('<img src="' + $(plugin.current).attr('href') + '" draggable="false">');
-
+                plugin.setCaption();
                 $(img).on('load', function () {
                     $('.lightbox__loading').remove();
                     plugin.lightbox.append(img);
                     plugin.image = $("img", plugin.lightbox).hide();
                     plugin.resizeImage();
-                    plugin.setCaption();
                 });
             },
 
